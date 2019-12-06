@@ -1,5 +1,4 @@
-﻿using System;
-using BrokerAPIs.Abstraction;
+﻿using BrokerAPIs.Abstraction;
 using TechTalk.SpecFlow;
 
 namespace BrokerAPIs.StepDefinitions
