@@ -128,10 +128,10 @@
     <Compile Include="Abstraction\Posts.cs" />
     <Compile Include="Models\PostsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepDefinitions\PostsSteps.cs" />
+    <Compile Include="Gherkin\StepDefinitions\PostsSteps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Features\Posts.feature" />
+    <None Include="Gherkin\Features\Posts.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

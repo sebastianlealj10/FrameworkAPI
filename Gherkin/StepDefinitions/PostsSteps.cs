@@ -1,7 +1,7 @@
 ﻿using BrokerAPIs.Abstraction;
 using TechTalk.SpecFlow;
 
-namespace BrokerAPIs.StepDefinitions
+namespace BrokerAPIs.Gherkin.StepDefinitions
 {
     [Binding]
     public class PostsSteps
