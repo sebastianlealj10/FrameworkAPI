@@ -1,4 +1,6 @@
 ﻿using BrokerAPIs.Abstraction;
+using BrokerAPIs.Models;
+using BrokerAPIs.TestData;
 using TechTalk.SpecFlow;
 
 namespace BrokerAPIs.Gherkin.StepDefinitions
@@ -8,6 +10,8 @@ namespace BrokerAPIs.Gherkin.StepDefinitions
     {
         private Posts _posts;
         private string _method;
+        private PostsData _postObject = new PostsData();
+        private PostsModel _testObj;
 
         [Given(@"I have set the URI to (.*) posts")]
         public void GivenIHaveSetTheUri(string method)
@@ -25,13 +29,15 @@ namespace BrokerAPIs.Gherkin.StepDefinitions
         [When(@"I have submitted a new post")]
         public void WhenIHaveSubmittedANewPost()
         {
-            _posts.PostsRequest(_method);
+            _testObj = _postObject.GetTestObject("post");
+            _posts.PostsRequest(_method, _testObj);
         }
         
         [Then(@"All posts are shown")]
         public void ThenAllPostsAreShown()
         {
-            _posts.PostsValidations(_method);
+            _testObj = _postObject.GetTestObject("get");
+            _posts.PostsValidations(_method,_testObj);
         }
         
         [Then(@"The new post is created")]

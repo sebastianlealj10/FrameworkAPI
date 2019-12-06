@@ -1,5 +1,7 @@
 ﻿using System;
 using BrokerAPIs.Abstraction;
+using BrokerAPIs.Models;
+using BrokerAPIs.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BrokerAPIs.Facade
@@ -8,21 +10,28 @@ namespace BrokerAPIs.Facade
     public class TestPosts
     {
         private Posts _posts;
+        private string _method;
+        private PostsData _postObject = new PostsData();
+        private PostsModel _testObj;
 
         [TestMethod]
         public void GetAllPosts()
         {
-            _posts = new Posts("get");
-            _posts.PostsRequest("get");
-            _posts.PostsValidations("get");
+            _testObj = _postObject.GetTestObject("get");
+            _method = "get";
+            _posts = new Posts(_method);
+            _posts.PostsRequest(_method);
+            _posts.PostsValidations(_method,_testObj);
         }
 
         [TestMethod]
         public void CreateANewPost()
         {
-            _posts = new Posts("post");
-            _posts.PostsRequest("post");
-            _posts.PostsValidations("post");
+            _testObj = _postObject.GetTestObject("post");
+            _method = "post";
+            _posts = new Posts(_method);
+            _posts.PostsRequest(_method, _testObj);
+            _posts.PostsValidations(_method);
         }
 
 
