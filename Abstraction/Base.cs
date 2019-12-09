@@ -7,7 +7,7 @@ namespace BrokerAPIs.Abstraction
         protected readonly RestClient RestClient = new RestClient();
         protected Base()
         {
-            RestClient.WithEndPoint("https://jsonplaceholder.typicode.com");
+            RestClient.WithEndPoint("http://localhost:3000");
         }
     }
 }

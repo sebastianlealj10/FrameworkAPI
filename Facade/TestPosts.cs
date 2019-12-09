@@ -2,19 +2,19 @@
 using BrokerAPIs.Abstraction;
 using BrokerAPIs.Models;
 using BrokerAPIs.TestData;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace BrokerAPIs.Facade
 {
-    [TestClass]
+    [TestFixture]
     public class TestPosts
     {
         private Posts _posts;
         private string _method;
-        private PostsData _postObject = new PostsData();
-        private PostsModel _testObj;
+        private readonly PostsData _postObject = new PostsData();
+        private PostsModel _testObj = new PostsModel();
 
-        [TestMethod]
+        [Test]
         public void GetAllPosts()
         {
             _testObj = _postObject.GetTestObject("get");
@@ -24,7 +24,7 @@ namespace BrokerAPIs.Facade
             _posts.PostsValidations(_method,_testObj);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateANewPost()
         {
             _testObj = _postObject.GetTestObject("post");

@@ -48,13 +48,13 @@ namespace BrokerAPIs.Abstraction
             Assert.AreEqual(201, _statusCode);
         }
 
-        public void PostsValidations(string method, PostsModel ModelTest)
+        public void PostsValidations(string method, PostsModel modelTest)
         {
             Assert.AreEqual(200, _statusCode);
-            Assert.AreEqual(ModelTest.Title,
-                        _postsList.Find(x => x.UserId == 2 && x.Id == 11).Title);
-            Assert.AreEqual(ModelTest.Body,
-                        _postsList.Find(x => x.UserId == 2 && x.Id == 11).Body);
+            Assert.AreEqual(modelTest.Title,
+                        _postsList.Find(x => x.id == 1).Title);
+            Assert.AreEqual(modelTest.Author,
+                        _postsList.Find(x => x.id == 1).Author);
         }
 
         private int GetCodeStatus(string endpoint)
