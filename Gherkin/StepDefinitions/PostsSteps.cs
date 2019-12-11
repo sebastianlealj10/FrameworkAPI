@@ -1,6 +1,4 @@
 ﻿using BrokerAPIs.Abstraction;
-using BrokerAPIs.Models;
-using BrokerAPIs.TestData;
 using TechTalk.SpecFlow;
 
 namespace BrokerAPIs.Gherkin.StepDefinitions
@@ -10,8 +8,6 @@ namespace BrokerAPIs.Gherkin.StepDefinitions
     {
         private Posts _posts;
         private string _method;
-        private PostsData _postObject = new PostsData();
-        private PostsModel _testObj;
 
         [Given(@"I have set the URI to (.*) posts")]
         public void GivenIHaveSetTheUri(string method)
@@ -29,19 +25,41 @@ namespace BrokerAPIs.Gherkin.StepDefinitions
         [When(@"I have submitted a new post")]
         public void WhenIHaveSubmittedANewPost()
         {
-            _testObj = _postObject.GetTestObject("post");
-            _posts.PostsRequest(_method, _testObj);
+            _posts.PostsRequest(_method);
         }
         
         [Then(@"All posts are shown")]
         public void ThenAllPostsAreShown()
         {
-            _testObj = _postObject.GetTestObject("get");
-            _posts.PostsValidations(_method,_testObj);
+            _posts.PostsValidations(_method);
         }
         
         [Then(@"The new post is created")]
         public void ThenTheNewPostIsCreated()
+        {
+            _posts.PostsValidations(_method);
+        }
+
+        [When(@"I have updated a post")]
+        public void WhenIHaveUpdatedPost()
+        {
+            _posts.PostsRequest(_method);
+        }
+
+        [Then(@"The post has been updated")]
+        public void ThenThePostHasBeenUpdated()
+        {
+            _posts.PostsValidations(_method);
+        }
+
+        [When(@"I have deleted a post")]
+        public void WhenIHaveDeleteAPost()
+        {
+            _posts.PostsRequest(_method);
+        }
+
+        [Then(@"The post has been deleted")]
+        public void ThenThePostHasBeenDeleted()
         {
             _posts.PostsValidations(_method);
         }

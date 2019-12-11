@@ -1,13 +1,20 @@
 ﻿using Beazley.InsightTesting.RestAPIClient;
+using BrokerAPIs.Utils;
 
 namespace BrokerAPIs.Abstraction
 {
+    
     class Base
     {
+        private static readonly log4net.ILog Log =
+            log4net.LogManager.GetLogger
+                (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         protected readonly RestClient RestClient = new RestClient();
+        private readonly string _jsonServerUri = CommonMethods.GetEnvironmentParameter("URI");
         protected Base()
         {
-            RestClient.WithEndPoint("http://localhost:3000");
+            RestClient.WithEndPoint(_jsonServerUri);
+            Log.Info($"URI set to {_jsonServerUri}");
         }
     }
 }

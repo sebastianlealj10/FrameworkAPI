@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BrokerAPIs.Models;
+﻿using BrokerAPIs.Models;
 
 namespace BrokerAPIs.TestData
 {
@@ -16,7 +11,11 @@ namespace BrokerAPIs.TestData
                 case "get":
                     return _postsModelTest;
                 case "post":
-                    return _postsModelContent;
+                    return _postsPostModelContent;
+                case "put":
+                    return _postsPutModelContent;
+                case "delete":
+                    return _postsDeleteModelContent;
                 default:
                     return null;
             }
@@ -27,10 +26,22 @@ namespace BrokerAPIs.TestData
             Title = "json-server",
             Author = "typicode"
         };
-        private readonly PostsModel _postsModelContent = new PostsModel()
+
+        private readonly PostsModel _postsPostModelContent = new PostsModel()
         {
             Title = "et ea vero quia laudantium autem",
             Author = "delectus reiciendis molestiae"
+        };
+
+        private readonly PostsModel _postsPutModelContent = new PostsModel()
+        {
+            Title = "et",
+            Author = "delectus"
+        };
+
+        private readonly PostsModel _postsDeleteModelContent = new PostsModel()
+        {
+            id = 4
         };
     }
 }

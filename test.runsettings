@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <TestRunParameters>
+
+    <!--Experts API Default Values and EndPoint -->
+    <Parameter name="URI" value="http://localhost:3000" />
+    <Parameter name="Posts" value="/posts" />
+
+  </TestRunParameters>
+</RunSettings>

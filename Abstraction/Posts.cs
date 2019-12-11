@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Beazley.InsightTesting.RestAPIClient;
 using BrokerAPIs.Models;
+using BrokerAPIs.TestData;
+using BrokerAPIs.Utils;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -12,7 +14,9 @@ namespace BrokerAPIs.Abstraction
         private int _statusCode;
         private string _jsonString;
         private List<PostsModel> _postsList;
-       
+        private readonly PostsData _postObject = new PostsData();
+        private PostsModel _testObj = new PostsModel();
+        private readonly string _postsEndpoint = CommonMethods.GetEnvironmentParameter("Posts");
 
         public Posts(string method)
         {
@@ -24,37 +28,68 @@ namespace BrokerAPIs.Abstraction
                 case "post":
                     RestClient.WithMethod(Verb.POST);
                     break;
-                default:
-                    Console.Error.WriteLine(method + "does exist in this context");
+                case "put":
+                    RestClient.WithMethod(Verb.PUT);
                     break;
+                case "delete":
+                    RestClient.WithMethod(Verb.DELETE);
+                    break;
+                default:
+                    throw new ArgumentException($"The method {method} is not valid.");
             }
         }
 
         public void PostsRequest(string method)
         {
-            _statusCode = GetCodeStatus("/posts");
-            _jsonString = GetJsonString("/posts");
-            _postsList = Posts.GetObject(_jsonString);
-        }
-
-        public void PostsRequest(string method, PostsModel modelContent)
-        {
-            AddPostContent(GetJsonString(modelContent));
-            _statusCode = GetCodeStatus("/posts");
+            switch (method)
+            {
+                case "get":
+                    _statusCode = GetCodeStatus(_postsEndpoint);
+                    _jsonString = GetJsonString(_postsEndpoint);
+                    _postsList = Posts.GetObject(_jsonString);
+                    break;
+                case "post":
+                    _testObj = _postObject.GetTestObject("post");
+                    AddPostContent(GetJsonString(_testObj));
+                    _statusCode = GetCodeStatus(_postsEndpoint);
+                    break;
+                case "put":
+                    _testObj = _postObject.GetTestObject("put");
+                    AddPostContent(GetJsonString(_testObj));
+                    _statusCode = GetCodeStatus(_postsEndpoint + "/5");
+                    break;
+                case "delete":
+                    _statusCode = GetCodeStatus(_postsEndpoint + "/4");
+                    break;
+                default:
+                    throw new ArgumentException($"The method {method} is not valid.");
+            }
         }
 
         public void PostsValidations(string method)
         {
-            Assert.AreEqual(201, _statusCode);
-        }
-
-        public void PostsValidations(string method, PostsModel modelTest)
-        {
-            Assert.AreEqual(200, _statusCode);
-            Assert.AreEqual(modelTest.Title,
+            switch (method)
+            {
+                case "get":
+                    _testObj = _postObject.GetTestObject("get");
+                    Assert.AreEqual(200, _statusCode);
+                    Assert.AreEqual(_testObj.Title,
                         _postsList.Find(x => x.id == 1).Title);
-            Assert.AreEqual(modelTest.Author,
+                    Assert.AreEqual(_testObj.Author,
                         _postsList.Find(x => x.id == 1).Author);
+                    break;
+                case "post":
+                    Assert.AreEqual(201, _statusCode);
+                    break;
+                case "put":
+                    Assert.AreEqual(200, _statusCode);
+                    break;
+                case "delete":
+                    Assert.AreEqual(200, _statusCode);
+                    break;
+                default:
+                    throw new ArgumentException($"The method {method} is not valid.");
+            }
         }
 
         private int GetCodeStatus(string endpoint)
@@ -81,6 +116,5 @@ namespace BrokerAPIs.Abstraction
         {
             RestClient.WithPostData(jsonContent);
         }
-
     }
 }
