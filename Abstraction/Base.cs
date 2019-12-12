@@ -3,8 +3,7 @@ using BrokerAPIs.Utils;
 
 namespace BrokerAPIs.Abstraction
 {
-    
-    class Base
+    internal class Base
     {
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger
