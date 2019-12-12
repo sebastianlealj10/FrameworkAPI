@@ -56,7 +56,7 @@ namespace BrokerAPIs.Abstraction
                 case "put":
                     _testObj = _postObject.GetTestObject("put");
                     AddPostContent(GetJsonString(_testObj));
-                    _statusCode = GetCodeStatus(_postsEndpoint + "/5");
+                    _statusCode = GetCodeStatus(_postsEndpoint + "/8");
                     break;
                 case "delete":
                     _statusCode = GetCodeStatus(_postsEndpoint + "/4");
